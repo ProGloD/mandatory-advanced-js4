@@ -18,3 +18,88 @@ export function init() {
     message: ""
   };
 }
+
+function checkLine(a, b, c, d) {
+  return a !== "white" && a === b && a === c && a === d;
+}
+
+function vertical(board) {
+  for (let i = ROWS - 1; i >= ROWS - 3; i--) {
+    for (let j = 0; j < COLUMNS; j++) {
+      if (
+        checkLine(
+          board[i][j].color,
+          board[i - 1][j].color,
+          board[i - 2][j].color,
+          board[i - 3][j].color
+        )
+      ) {
+        return `Player ${board[i][j].color} wins!`;
+      }
+    }
+  }
+  return false;
+}
+
+function horizontal(board) {
+  for (let i = ROWS - 1; i >= 0; i--) {
+    for (let j = 0; j < COLUMNS - 3; j++) {
+      if (
+        checkLine(
+          board[i][j].color,
+          board[i][j + 1].color,
+          board[i][j + 2].color,
+          board[i][j + 3].color
+        )
+      ) {
+        return `Player ${board[i][j].color} wins!`;
+      }
+    }
+  }
+  return false;
+}
+
+function diagonalRight(board) {
+  for (let i = ROWS - 1; i >= ROWS - 3; i--) {
+    for (let j = 0; j < COLUMNS - 3; j++) {
+      if (
+        checkLine(
+          board[i][j].color,
+          board[i - 1][j + 1].color,
+          board[i - 2][j + 2].color,
+          board[i - 3][j + 3].color
+        )
+      ) {
+        return `Player ${board[i][j].color} wins!`;
+      }
+    }
+  }
+  return false;
+}
+
+function diagonalLeft(board) {
+  for (let i = ROWS - 4; i >= 0; i--) {
+    for (let j = 0; j < COLUMNS - 3; j++) {
+      if (
+        checkLine(
+          board[i][j].color,
+          board[i + 1][j + 1].color,
+          board[i + 2][j + 2].color,
+          board[i + 3][j + 3].color
+        )
+      ) {
+        return `Player ${board[i][j].color} wins!`;
+      }
+    }
+  }
+  return false;
+}
+
+export function checkWinner(board) {
+  return (
+    vertical(board) ||
+    horizontal(board) ||
+    diagonalRight(board) ||
+    diagonalLeft(board)
+  );
+}
