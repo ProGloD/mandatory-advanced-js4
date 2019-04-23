@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from "react";
+import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import { PLAYER_1, PLAYER_2 } from "./constants";
+import { init } from "./utils";
+import { reducer } from "./reducer";
+import * as actions from "./actions";
+import Board from "./Board";
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, null, init);
+
+  const { board, currentPlayer, gameOver, message } = state;
+
+  return (
+    <div>
+      <h1>Connect 4</h1>
+      <button onClick={() => dispatch(actions.newGame())}>New Game</button>
+      <Board board={board} onClickFill={id => dispatch(actions.fillCell(id))} />
+    </div>
+  );
 }
 
 export default App;
