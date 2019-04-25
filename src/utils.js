@@ -24,7 +24,7 @@ function checkLine(a, b, c, d) {
 }
 
 function vertical(board) {
-  for (let i = ROWS - 1; i >= ROWS - 3; i--) {
+  for (let i = ROWS - 1; i >= 4; i--) {
     for (let j = 0; j < COLUMNS; j++) {
       if (
         checkLine(
@@ -60,7 +60,7 @@ function horizontal(board) {
 }
 
 function diagonalRight(board) {
-  for (let i = ROWS - 1; i >= ROWS - 3; i--) {
+  for (let i = ROWS - 1; i >= 4; i--) {
     for (let j = 0; j < COLUMNS - 3; j++) {
       if (
         checkLine(
@@ -78,14 +78,14 @@ function diagonalRight(board) {
 }
 
 function diagonalLeft(board) {
-  for (let i = ROWS - 4; i >= 0; i--) {
-    for (let j = 0; j < COLUMNS - 3; j++) {
+  for (let i = ROWS - 1; i >= 3; i--) {
+    for (let j = COLUMNS - 1; j >= 3; j--) {
       if (
         checkLine(
           board[i][j].color,
-          board[i + 1][j + 1].color,
-          board[i + 2][j + 2].color,
-          board[i + 3][j + 3].color
+          board[i - 1][j - 1].color,
+          board[i - 2][j - 2].color,
+          board[i - 3][j - 3].color
         )
       ) {
         return `Player ${board[i][j].color} wins!`;
@@ -95,11 +95,23 @@ function diagonalLeft(board) {
   return false;
 }
 
+function draw(board) {
+  for (let row of board) {
+    for (let cell of row) {
+      if (!cell.filled) {
+        return false;
+      }
+    }
+  }
+  return "DRAW!";
+}
+
 export function checkWinner(board) {
   return (
     vertical(board) ||
     horizontal(board) ||
     diagonalRight(board) ||
-    diagonalLeft(board)
+    diagonalLeft(board) ||
+    draw(board)
   );
 }

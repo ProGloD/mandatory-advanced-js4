@@ -1,5 +1,5 @@
 import React from "react";
-import { COLUMNS, ROWS } from "./constants";
+import { COLUMNS, ROWS } from "../constants";
 
 const styles = {
   board: {

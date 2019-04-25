@@ -1,5 +1,5 @@
-import { init, checkWinner } from "./utils";
-import { PLAYER_1, PLAYER_2 } from "./constants";
+import { init, checkWinner } from "../utils";
+import { PLAYER_1, PLAYER_2 } from "../constants";
 
 export function reducer(state, action) {
   let board;
