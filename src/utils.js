@@ -60,7 +60,7 @@ function horizontal(board) {
 }
 
 function diagonalRight(board) {
-  for (let i = ROWS - 1; i >= 4; i--) {
+  for (let i = ROWS - 1; i >= 3; i--) {
     for (let j = 0; j < COLUMNS - 3; j++) {
       if (
         checkLine(
